@@ -153,7 +153,7 @@ function SignUpForm() {
               <div className="text-center text-sm">
                 Already have an account?{" "}
                 <Link
-                  href="/login"
+                  href="/sign-in"
                   className="font-medium text-primary hover:underline"
                 >
                   Login
