@@ -27,6 +27,7 @@ function SignInForm() {
   const router = useRouter();
 
   const [pending, setPending] = useState(false);
+  const [pendingGithub, setPendingGithub] = useState(false);
   const { toast } = useToast();
 
   const form = useForm<SignInValues>({
@@ -62,6 +63,31 @@ function SignInForm() {
       }
     );
     setPending(false);
+  };
+
+  const handleSignInWithGithub = async () => {
+    await authClient.signIn.social(
+      {
+        provider: "github",
+      },
+      {
+        onRequest: () => {
+          setPendingGithub(true);
+        },
+        onSuccess: async () => {
+          router.push("/");
+          router.refresh();
+        },
+        onError: (ctx: ErrorContext) => {
+          toast({
+            title: "Something went wrong",
+            description: ctx.error.message ?? "Something went wrong.",
+            variant: "destructive",
+          });
+        },
+      }
+    );
+    setPendingGithub(false);
   };
   return (
     <div className="grow flex items-center justify-center p-4">
@@ -132,10 +158,15 @@ function SignInForm() {
                 Or continue with
               </span>
             </div>
-            <Button variant="outline" className="w-full">
-              <Icons.github />
+            <LoadingButton
+              variant="outline"
+              className="w-full flex items-center gap-2"
+              onClick={handleSignInWithGithub}
+              loading={pendingGithub}
+            >
+              <Icons.github className="w-5 h-5" />
               Login with GitHub
-            </Button>
+            </LoadingButton>
           </div>
 
           <div className="text-center text-sm">
