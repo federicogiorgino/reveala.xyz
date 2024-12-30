@@ -58,7 +58,7 @@ function ForgotPasswordForm() {
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <div className="flex flex-col items-center gap-2 text-center">
-            <h1 className="text-4xl font-bold">Fogot Password</h1>
+            <h1 className="text-4xl font-bold">Forgot Password</h1>
             <p className="text-balance text-sm text-muted-foreground">
               Enter your email address to reset your password.
             </p>
