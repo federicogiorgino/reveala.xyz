@@ -21,6 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Icons } from "@/components/ui/icons";
+import { authClient } from "@/auth.client";
 
 function SignUpForm() {
   const [pending, setPending] = useState(false);
@@ -37,7 +38,33 @@ function SignUpForm() {
   });
 
   const onSubmit = async (values: SignUpValues) => {
-    console.log(values);
+    await authClient.signUp.email(
+      {
+        email: values.email,
+        password: values.password,
+        name: values.name,
+      },
+      {
+        onRequest: () => {
+          setPending(true);
+        },
+        onSuccess: () => {
+          toast({
+            title: "Account created",
+            description:
+              "Your account has been created. Check your email for a verification link.",
+          });
+        },
+        onError: (ctx) => {
+          console.log("error", ctx);
+          toast({
+            title: "Something went wrong",
+            description: ctx.error.message ?? "Something went wrong.",
+          });
+        },
+      }
+    );
+    setPending(false);
   };
 
   return (

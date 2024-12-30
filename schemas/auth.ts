@@ -2,12 +2,12 @@ import * as z from "zod";
 
 const passwordSchema = z
   .string({ required_error: "Password is required" })
-  .min(6, "Password must be atleast 6 characters")
+  .min(8, "Password must be atleast 8 characters")
   .max(32, "Password can not exceed 32 characters");
 
 const confirmPasswordSchema = z
   .string({ required_error: "Confirm Password is required" })
-  .min(6, "Confirm Password must be atleast 6 characters")
+  .min(8, "Confirm Password must be atleast 8 characters")
   .max(32, "Confirm Password can not exceed 32 characters");
 
 const emailSchema = z
