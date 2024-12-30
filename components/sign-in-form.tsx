@@ -126,7 +126,7 @@ function SignInForm() {
                     <FormLabel>Password</FormLabel>
                     <div className="text-right text-sm">
                       <Link
-                        href="/password-forgot"
+                        href="/forgot-password"
                         className="font-medium text-primary underline"
                       >
                         Forgot password?
