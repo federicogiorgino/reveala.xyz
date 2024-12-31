@@ -7,6 +7,33 @@ import { openAPI } from "better-auth/plugins";
 export const auth = betterAuth({
   database: prismaAdapter(prisma, { provider: "mongodb" }),
   plugins: [openAPI()],
+  session: {
+    expiresIn: 60 * 60 * 24 * 7, // 7 days
+    updateAge: 60 * 60 * 24, // 1 day (every 1 day the session expiration is updated)
+    cookieCache: {
+      enabled: true,
+      maxAge: 5 * 60, // Cache duration in seconds
+    },
+  },
+  user: {
+    additionalFields: {
+      premium: {
+        type: "boolean",
+        required: false,
+      },
+    },
+    changeEmail: {
+      enabled: true,
+      sendChangeEmailVerification: async ({ newEmail, url }) => {
+        await sendEmail({
+          to: newEmail,
+          subject: "Verify your email change",
+          text: `Click the link to verify: ${url}`,
+          html: `<p>Click <a href="${url}">here</a> to verify</p>`,
+        });
+      },
+    },
+  },
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
