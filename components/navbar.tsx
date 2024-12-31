@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Icons } from "@/components/ui/icons";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -18,13 +18,20 @@ async function Navbar() {
               reveala.<span className="">xyz</span>
             </span>
           </Link>
+
           <div className="flex items-center space-x-4">
             <ThemeToggle />
             {session ? (
-              <UserDropdown user={session.user} />
+              <UserDropdown
+                user={session.user}
+                isAdmin={session.user.role === "admin"}
+              />
             ) : (
-              <Link href="/sign-in">
-                <Button>Login</Button>
+              <Link
+                href="/sign-in"
+                className={buttonVariants({ variant: "default" })}
+              >
+                Login
               </Link>
             )}
           </div>

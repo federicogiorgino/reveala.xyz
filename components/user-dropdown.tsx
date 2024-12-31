@@ -14,13 +14,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { getInitials } from "@/lib/utils";
 import { User } from "better-auth";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 type UserDropdownProps = {
   user: User;
+  isAdmin: boolean;
 };
 
-function UserDropdown({ user }: UserDropdownProps) {
+function UserDropdown({ user, isAdmin }: UserDropdownProps) {
   const router = useRouter();
 
   const handleSignOut = async () => {
@@ -37,7 +39,6 @@ function UserDropdown({ user }: UserDropdownProps) {
       console.error("Error signing out:", error);
     }
   };
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -60,9 +61,16 @@ function UserDropdown({ user }: UserDropdownProps) {
         <DropdownMenuGroup>
           <DropdownMenuItem>Profile</DropdownMenuItem>
           <DropdownMenuItem>Settings</DropdownMenuItem>
+          {isAdmin && (
+            <DropdownMenuItem>
+              <Link href="/admin">Admin</Link>
+            </DropdownMenuItem>
+          )}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleSignOut}>Log out</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer">
+          Log out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
