@@ -1,10 +1,10 @@
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Icons } from "@/components/ui/icons";
-import Link from "next/link";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { auth } from "@/auth";
-import { headers } from "next/headers";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { buttonVariants } from "@/components/ui/button";
+import { Icons } from "@/components/ui/icons";
 import { UserDropdown } from "@/components/user-dropdown";
+import { headers } from "next/headers";
+import Link from "next/link";
 
 async function Navbar() {
   const session = await auth.api.getSession({ headers: headers() });

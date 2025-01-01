@@ -1,7 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { UsersTable } from "@/components/users-table";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 
 type AdminPageProps = {
   searchParams?: { [key: string]: string | string[] | undefined };
